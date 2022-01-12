@@ -1,24 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import Counter from "./component/counter";
+import {applyMiddleware,compose, createStore} from 'redux'
+import counterReducer from './reducer'
+import {Provider} from 'react-redux'
+import logger from 'redux-logger'
+
+const store = createStore(
+  counterReducer,
+  compose(applyMiddleware(logger),
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+  )
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <Counter/>
+    </Provider>
   );
 }
 
